@@ -4,8 +4,46 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Nákupní seznam</title>
+		<style>
+			body {
+				font-family: sans-serif;
+			}
+
+			textarea {
+				box-sizing: border-box;
+				margin-left: 2em;
+				width: calc(100% - 2em);
+				tab-size: 4;
+				resize: none;
+				border: none;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Nákupní seznam</h1>
+		<h2>Demo</h2>
+		<h2>Dokumentace</h2>
+		<h3>Výpis nákupních seznamů</h3>
+		<textarea rows="1">fetch('/api/')</textarea>
+		<h3>Přidat do seznamu</h3>
+		<textarea rows="7">
+fetch('/api/example/', {
+	method: 'POST',
+	headers: {
+		'content-type': 'application/json'
+	},
+	body: JSON.stringify({add: {label: 'Hrášek', amount: '16 kusů'}})
+})</textarea
+		>
+		<h3>Smazat ze seznamu</h3>
+		<textarea rows="7">
+fetch('/api/example/', {
+	method: 'POST',
+	headers: {
+		'content-type': 'application/json'
+	},
+	body: JSON.stringify({remove: 'a1fcbf28-6db6-4cd9-9158-bdd3a918fad3'})
+})</textarea
+		>
 	</body>
 </html>
