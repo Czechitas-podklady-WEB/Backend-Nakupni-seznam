@@ -8,7 +8,6 @@
 			body {
 				font-family: sans-serif;
 			}
-
 			textarea {
 				box-sizing: border-box;
 				margin-left: 2em;
@@ -17,32 +16,118 @@
 				resize: none;
 				border: none;
 			}
+			table {
+				text-align: left;
+			}
+			button {
+				cursor: pointer;
+			}
+			td {
+				padding-left: 10px;
+			}
 		</style>
 	</head>
 	<body>
 		<h1>Nákupní seznam</h1>
 		<h2>Demo</h2>
+		<h3>Nákupní seznamy</h3>
+		<ul id="lists"></ul>
+		<script>
+			fetch('/api/')
+				.then((response) => response.json())
+				.then(
+					(data) =>
+						(document.querySelector('#lists').innerHTML = data.lists
+							.map((name) => `<li>${name}</li>`)
+							.join('')),
+				)
+		</script>
+		<h3>Ukázkový seznam</h3>
+		<table>
+			<tbody id="example-list"></tbody>
+		</table>
+		<form id="add-example-form">
+			<label>Název: <input type="text" name="label" required /></label>
+			<br />
+			<label>Počet: <input type="text" name="amount" required /></label>
+			<br />
+			<button type="submit">Přidat</button>
+		</form>
+		<script>
+			const loadExampleList = () => {
+				const list = document.querySelector('#example-list')
+				fetch('/api/example/')
+					.then((response) => response.json())
+					.then((data) => {
+						list.innerHTML = ''
+						data.items.forEach((item) => {
+							const row = document.createElement('tr')
+							row.innerHTML = `<th>${item.label}</th><td>${item.amount}</td><td><button type="button">odebrat</button>`
+							row.querySelector('button').addEventListener('click', () => {
+								row.remove()
+								fetch('/api/example/', {
+									method: 'POST',
+									headers: {
+										'content-type': 'application/json',
+									},
+									body: JSON.stringify({
+										remove: item.id,
+									}),
+								})
+							})
+							list.appendChild(row)
+						})
+					})
+			}
+			loadExampleList()
+			document
+				.querySelector('#add-example-form')
+				.addEventListener('submit', (event) => {
+					event.preventDefault()
+					fetch('/api/example/', {
+						method: 'POST',
+						headers: {
+							'content-type': 'application/json',
+						},
+						body: JSON.stringify({
+							add: Object.fromEntries(new FormData(event.target)),
+						}),
+					}).then(() => loadExampleList())
+					event.target
+						.querySelectorAll('input')
+						.forEach((input) => (input.value = ''))
+				})
+		</script>
 		<h2>Dokumentace</h2>
 		<h3>Výpis nákupních seznamů</h3>
 		<textarea rows="1">fetch('/api/')</textarea>
+		<h3>Vypsat položky v seznamu</h3>
+		<textarea rows="1">fetch('/api/example/')</textarea>
 		<h3>Přidat do seznamu</h3>
-		<textarea rows="7">
+		<textarea rows="12">
 fetch('/api/example/', {
 	method: 'POST',
 	headers: {
 		'content-type': 'application/json'
 	},
-	body: JSON.stringify({add: {label: 'Hrášek', amount: '16 kusů'}})
+	body: JSON.stringify({
+		add: {
+			label: 'Hrášek',
+			amount: '16 ks',
+		}
+	}),
 })</textarea
 		>
 		<h3>Smazat ze seznamu</h3>
-		<textarea rows="7">
+		<textarea rows="9">
 fetch('/api/example/', {
 	method: 'POST',
 	headers: {
 		'content-type': 'application/json'
 	},
-	body: JSON.stringify({remove: 'a1fcbf28-6db6-4cd9-9158-bdd3a918fad3'})
+	body: JSON.stringify({
+		remove: 'a1fcbf28-6db6-4cd9-9158-bdd3a918fad3'
+	}),
 })</textarea
 		>
 	</body>
