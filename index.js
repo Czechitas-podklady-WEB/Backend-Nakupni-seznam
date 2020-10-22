@@ -1,6 +1,11 @@
+import cors from 'cors'
 import express from 'express'
 
 const app = express()
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(cors())
+
 const port = 3000
 
 app.get('/', (request, response) => {
