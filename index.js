@@ -98,8 +98,13 @@ apiRouter.post('/:name', (request, response) => {
 	response.send({ status: 'error', message: 'Nothing to do.' })
 })
 
-app.get('/', (request, response) => {
-	response.send('Hello')
+// 404
+
+apiRouter.use((request, response) => {
+	response.status(404).send({
+		status: 'error',
+		message: 'Not found.',
+	})
 })
 
 app.listen(port, () => {
