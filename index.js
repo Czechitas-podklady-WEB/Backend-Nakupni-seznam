@@ -19,11 +19,11 @@ app.use('/api', apiRouter)
 
 const shoppingLists = {
 	example: [
-		{ id: generateId(), label: 'Rice', amount: '1 kg' },
-		{ id: generateId(), label: 'Bread', amount: '2' },
-		{ id: generateId(), label: 'Kale', amount: '4' },
-		{ id: generateId(), label: 'Potatoes', amount: '20 kg' },
-		{ id: generateId(), label: 'Peas', amount: '26' },
+		{ id: generateId(), label: 'Rýže', amount: '1 kg' },
+		{ id: generateId(), label: 'Chléb', amount: '2' },
+		{ id: generateId(), label: 'Kapusta', amount: '4' },
+		{ id: generateId(), label: 'Brambory', amount: '20 kg' },
+		{ id: generateId(), label: 'Hrášek', amount: '26 kuliček' },
 	],
 }
 
