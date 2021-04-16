@@ -109,7 +109,23 @@ fetch('/api/example/', {
 							list.innerHTML = ''
 							data.items.forEach((item) => {
 								const row = document.createElement('tr')
-								row.innerHTML = `<th class="align-middle">${item.label}</th><td class="align-middle">${item.amount}</td><td><button type="button" class="btn btn-secondary btn-sm">odebrat</button>`
+
+								const label = document.createElement('th')
+								label.classList.add('align-middle')
+								label.textContent = item.label
+								row.appendChild(label)
+
+								const amount = document.createElement('td')
+								amount.classList.add('align-middle')
+								amount.textContent = item.amount
+								row.appendChild(amount)
+
+								const remove = document.createElement('td')
+								remove.classList.add('align-middle')
+								remove.innerHTML =
+									'<button type="button" class="btn btn-secondary btn-sm">odebrat</button>'
+								row.appendChild(remove)
+
 								row.querySelector('button').addEventListener('click', () => {
 									row.remove()
 									fetch('/api/example/', {
