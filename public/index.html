@@ -61,6 +61,14 @@ fetch('/api/example/', {
 	}),
 })</textarea
 			>
+			<script>
+				document.querySelectorAll('textarea').forEach((textArea) => {
+					textArea.innerHTML = textArea.innerHTML.replace(
+						"fetch('/api/",
+						`fetch('${location.origin}/api/`,
+					)
+				})
+			</script>
 			<h2 class="mb-3">Ukázkový seznam <em>example</em></h2>
 			<div class="row">
 				<div class="col-sm-10 col-md-8 col-lg-6">
