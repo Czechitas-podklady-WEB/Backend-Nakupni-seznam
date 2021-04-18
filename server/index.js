@@ -13,7 +13,7 @@ if (Number.isNaN(port)) {
   throw new Error('PORT environment variable not set to a number.');
 }
 
-app.use(express.static('public'));
+app.use('/', express.static('public'));
 
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
@@ -50,10 +50,10 @@ apiRouter.post('/:name', (request, response) => {
 
   if (add) {
     if (
-      add !== null
-      && typeof add === 'object'
-      && typeof add.label === 'string'
-      && typeof add.amount === 'string'
+      add !== null &&
+      typeof add === 'object' &&
+      typeof add.label === 'string' &&
+      typeof add.amount === 'string'
     ) {
       shoppingLists[name].push({
         id: nanoid(),
@@ -101,8 +101,6 @@ apiRouter.post('/:name', (request, response) => {
 
   response.send({ status: 'error', message: 'Nothing to do.' });
 });
-
-// 404
 
 apiRouter.use((request, response) => {
   response.status(404).send({
