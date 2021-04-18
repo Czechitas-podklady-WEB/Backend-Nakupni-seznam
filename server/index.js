@@ -102,8 +102,6 @@ apiRouter.post('/:name', (request, response) => {
   response.send({ status: 'error', message: 'Nothing to do.' });
 });
 
-// 404
-
 apiRouter.use((request, response) => {
   response.status(404).send({
     status: 'error',
