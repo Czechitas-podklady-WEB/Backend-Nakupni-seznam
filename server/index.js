@@ -13,7 +13,7 @@ if (Number.isNaN(port)) {
   throw new Error('PORT environment variable not set to a number.');
 }
 
-app.use(express.static('public'));
+app.use('/', express.static('public'));
 
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
