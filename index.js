@@ -7,8 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const port = parseInt(process.env.PORT || '', 10);
-if (!port) {
+const port = parseInt(process.env.PORT, 10);
+if (Number.isNaN(port)) {
   throw new Error('PORT environment variable not set to a number.');
 }
 
