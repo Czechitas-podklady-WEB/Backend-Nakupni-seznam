@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import { customAlphabet } from 'nanoid';
+
 const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz', 8);
 
 const app = express();
@@ -49,13 +50,13 @@ apiRouter.post('/:name', (request, response) => {
 
   if (add) {
     if (
-      add !== null &&
-      typeof add === 'object' &&
-      typeof add.label === 'string' &&
-      typeof add.amount === 'string'
+      add !== null
+      && typeof add === 'object'
+      && typeof add.label === 'string'
+      && typeof add.amount === 'string'
     ) {
       shoppingLists[name].push({
-        id: generateId(),
+        id: nanoid(),
         label: add.label,
         amount: add.amount,
       });
