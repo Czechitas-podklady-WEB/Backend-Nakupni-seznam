@@ -50,10 +50,10 @@ apiRouter.post('/:name', (request, response) => {
 
   if (add) {
     if (
-      add !== null
-      && typeof add === 'object'
-      && typeof add.label === 'string'
-      && typeof add.amount === 'string'
+      add !== null &&
+      typeof add === 'object' &&
+      typeof add.label === 'string' &&
+      typeof add.amount === 'string'
     ) {
       shoppingLists[name].push({
         id: nanoid(),
